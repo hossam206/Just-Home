@@ -37,5 +37,23 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        ".flexRow": {
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+        },
+        ".flexCol": {
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        },
+        ".Transition": {
+          transition: "all 0.3s ease-in-out",
+        },
+      });
+    },
+  ],
 };
