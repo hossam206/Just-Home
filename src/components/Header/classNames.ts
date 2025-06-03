@@ -19,6 +19,6 @@ export const HeaderStyles = {
     "flex flex-row justify-between items-center gap-2 w-full bg-white rounded-full px-2 py-1 mt-4 shadow-md"
   ),
   inputStyle: clx(
-    "bg-transparent w-full border-none text-sm placeholder:text-gray-600 text-black"
+    "bg-transparent w-full border-none text-sm placeholder:text-gray-60 text-black"
   ),
 };

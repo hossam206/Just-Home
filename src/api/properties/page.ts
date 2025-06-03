@@ -2,6 +2,7 @@
 // app/properties/api/fetchProperties.ts
 const api = process.env.NEXT_PUBLIC_API_URL;
 export async function fetchProperties() {
+  
   try {
     const res = await fetch(`${api}/properties`, {
       cache: "no-store",

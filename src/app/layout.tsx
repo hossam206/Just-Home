@@ -8,7 +8,7 @@ const InterSans = Inter({
   subsets: ["latin"],
 });
 export const metadata: Metadata = {
-  title: "RealState Hub",
+  title: "Just Home",
   description:
     "RealState Hub is a platform that helps you find the best real estate for you.",
 };
