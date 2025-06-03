@@ -7,7 +7,9 @@ const baseButtonStyles =
 // Variant styles
 export const variantStyles = {
   "btn-primary": "bg-primary text-white",
-  "btn-secondary": "bg-gray-90 text-white hover:opacity-60",
+  "btn-secondary": "bg-secondary text-white hover:opacity-60",
+  "btn-transparent":
+    "bg-transparent text-white border border-solid  hover:opacity-60",
   "btn-delete":
     "bg-[#FFE4DE] text-[#C1342E] hover:bg-[#FFC9BC] hover:text-[#BA241F] transition font-semibold",
   "btn-cancel":
