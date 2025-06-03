@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+  --font-Inter: "Inter";
+}
+body {
+  font-family: var(--font-Inter);
+}
