@@ -1,4 +1,7 @@
+import { cn } from "@/src/lib/utils";
 import { memo, ReactNode } from "react";
+import { Skeleton } from "./skeleton";
+
 type RenderWithSkeletonProps = {
   value: any;
   skeletonWidth?: number | string;
@@ -7,6 +10,7 @@ type RenderWithSkeletonProps = {
   children: ReactNode;
   ariaLabel?: string; // Accessibility improvement
 };
+
 export const RenderWithSkeleton = memo(
   ({
     value,
@@ -17,32 +21,29 @@ export const RenderWithSkeleton = memo(
     ariaLabel = "Loading content",
     ...props
   }: RenderWithSkeletonProps) => {
-    // Comprehensive check for empty values
-    const isEmpty = (val: any) =>
+    
+    const isValueEmpty = (val: any) =>
       val === undefined ||
       val === null ||
       (typeof val === "string" && val.trim() === "") ||
       (Array.isArray(val) && val.length === 0) ||
       (typeof val === "object" && Object.keys(val).length === 0);
 
-    // Dynamically set width and height styles
-    const widthStyle =
-      typeof skeletonWidth === "number" ? `${skeletonWidth}px` : skeletonWidth;
-    const heightStyle =
-      typeof skeletonHeight === "number"
-        ? `${skeletonHeight}px`
-        : skeletonHeight;
-
-    // If value is empty or delay is active, show Skeleton
-    if (isEmpty(value)) {
+    const skeletonClass = cn(
+      className,
+      `w-[${
+        typeof skeletonWidth === "number" ? `${skeletonWidth}px` : skeletonWidth
+      }]`,
+      `h-[${
+        typeof skeletonHeight === "number"
+          ? `${skeletonHeight}px`
+          : skeletonHeight
+      }]`
+    );
+console.log(isValueEmpty(value));
+    if (isValueEmpty(value)) {
       return (
-        <div
-          data-slot="skeleton"
-          className={className}
-          style={{ width: widthStyle, height: heightStyle }}
-          aria-label={ariaLabel}
-          {...props}
-        />
+        <Skeleton className="w-50 h-50" aria-label={ariaLabel} {...props} />
       );
     }
 
