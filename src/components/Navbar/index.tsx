@@ -44,6 +44,7 @@ const Navbar = () => {
           {listarr?.map((item) => (
             <li key={item.id}>
               <Link
+                onClick={() => setMobileScreen(false)}
                 href={item.link}
                 className="capitalize font-normal hover:text-gray-40"
               >
@@ -89,7 +90,7 @@ const Navbar = () => {
           <Image
             src={"/Images/Logo/lightLogo.png"}
             alt="website logo"
-            width={100}
+            width={140}
             height={20}
             style={{ width: "auto", height: "auto" }}
           />
@@ -139,6 +140,7 @@ const Navbar = () => {
           <div className="flexCol items-start justify-center  mt-6   px-2">
             {listarr.map((item) => (
               <Link
+                onClick={() => setMobileScreen(false)}
                 href={item.link}
                 className={NavbarStyles.SideBarLinks}
                 key={item.id}
@@ -166,11 +168,12 @@ const Navbar = () => {
               type="button"
               className="w-full "
               variant="btn-primary"
-              onClick={() =>
+              onClick={() => {
+                setMobileScreen(false);
                 router.push(
                   isloggedIn ? "/admin/properties/create" : "/auth/login"
-                )
-              }
+                );
+              }}
             >
               Add Property
             </Button>
