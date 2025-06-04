@@ -71,11 +71,11 @@ const Navbar = () => {
           <Button
             variant="btn-transparent"
             type="button"
-            onClick={() => {
-              isloggedIn
-                ? router.push("/admin/properties/create")
-                : router.push("/auth/login");
-            }}
+            onClick={() =>
+              router.push(
+                isloggedIn ? "/admin/properties/create" : "/auth/login"
+              )
+            }
             className="!rounded-full !text-xs font-normal"
           >
             Add Property
@@ -166,11 +166,11 @@ const Navbar = () => {
               type="button"
               className="w-full "
               variant="btn-primary"
-              onClick={() => {
-                isloggedIn
-                  ? router.push("/admin/properties/create")
-                  : router.push("/auth/login");
-              }}
+              onClick={() =>
+                router.push(
+                  isloggedIn ? "/admin/properties/create" : "/auth/login"
+                )
+              }
             >
               Add Property
             </Button>

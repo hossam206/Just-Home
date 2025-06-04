@@ -10,7 +10,6 @@ export type PaginationLinkProps = {
 } & AnchorHTMLAttributes<HTMLAnchorElement>;
 
 function PaginationLink({
-  className,
   isActive,
   size = "icon",
   ...props

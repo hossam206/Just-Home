@@ -15,7 +15,6 @@ import { propertyTypes } from "./assets";
 import { validationSchema } from "./ValidationSchema";
 import { useRouter } from "next/navigation";
 type Country = keyof typeof countries;
-type City<C extends Country> = keyof (typeof countries)[C]["cities"];
 const AdminPropertyForm = () => {
   const router = useRouter();
   const [cities, setCities] = useState<string[]>([]);
@@ -58,7 +57,7 @@ const AdminPropertyForm = () => {
     formik.setFieldValue("city", "");
     formik.setFieldValue("district", "");
     setDistricts([]);
-  }, [formik.values.country]);
+  }, [formik.values.country, formik]);
 
   // Update districts when city changes
   useEffect(() => {
@@ -81,7 +80,7 @@ const AdminPropertyForm = () => {
     }
 
     formik.setFieldValue("district", "");
-  }, [formik.values.city, formik.values.country]);
+  }, [formik.values.city, formik.values.country, formik]);
 
   const handleAddImage = () => {
     if (imageUrl.trim()) {

@@ -57,7 +57,7 @@ const Page = () => {
       password: "",
     },
     validationSchema,
-    onSubmit: async (values) => {
+    onSubmit: async () => {
       setErrMsg("");
       setLoading(true);
       try {

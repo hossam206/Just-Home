@@ -136,7 +136,7 @@ const Carousel = forwardRef<
         }
       }, 4000);
       return () => clearInterval(autoplay);
-    }, [api]);
+    }, [api,playWithClick]);
 
     return (
       <CarouselContext.Provider

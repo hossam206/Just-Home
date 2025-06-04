@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import LayoutWrapper from "../layouts/LayoutWrapper";
 const InterSans = Inter({
