@@ -55,6 +55,7 @@ const TextInput = ({
           value={value || ""}
           readOnly={readOnly}
           name={name}
+          inputMode={type === "number" ? "numeric" : undefined}
           onChange={onChange}
           autoComplete={autocomplete}
           onBlur={onBlur}

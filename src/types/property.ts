@@ -17,4 +17,5 @@ export type PropertyCardProps = {
 };
 export type propertiesProps = {
   properties: Property[];
+  isFilterPage?: boolean;
 };

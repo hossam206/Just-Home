@@ -2,7 +2,7 @@ import clx from "clsx";
 
 export const HeaderStyles = {
   container: clx(
-    "relative bg-[url('/Images/Header/HeaderBg.png')] bg-no-repeat bg-cover md:bg-center bg-position min-h-screen text-white flex flex-col"
+    "relative   bg-no-repeat bg-cover md:bg-center min-h-screen text-white flex flex-col"
   ),
   contetDiv: clx(
     "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
@@ -10,7 +10,7 @@ export const HeaderStyles = {
     "w-full max-w-[90%] md:max-w-2xl text-center"
   ),
   guidText: clx(
-    "rounded-full py-2  w-fit px-2 md:px-4  text-center block text-xs border border-solid"
+    "rounded-full py-2  w-fit px-2 md:px-4  text-center block text-xs border border-solid border-white"
   ),
   sellORrent: clx(
     "border-b-2 border-white hover:text-white pb-1 cursor-pointer"
