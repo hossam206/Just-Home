@@ -11,7 +11,7 @@ type TextInputProps = {
   placeholder?: string;
   autocomplete?: string; // for passwordss inputs only make better Accessibility
   mandatory?: boolean;
-  value: string;
+  value: string | number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   className?: string;

@@ -1,6 +1,7 @@
+import { Property } from "@/src/types/property";
+
 const api = process.env.NEXT_PUBLIC_API_URL;
 
- 
 export async function fetchProperties(
   filters: { [key: string]: string | undefined } = {}
 ) {
@@ -23,7 +24,7 @@ export async function fetchProperties(
     const priceMin = filters.priceMin ? Number(filters.priceMin) : null;
     const priceMax = filters.priceMax ? Number(filters.priceMax) : null;
 
-    return data.filter((property: any) => {
+    return data.filter((property: Property) => {
       const propertyTitle = property.title?.toLowerCase() || "";
       const description = property.description?.toLowerCase() || "";
 
@@ -63,4 +64,3 @@ export async function fetchProperties(
     return [];
   }
 }
-

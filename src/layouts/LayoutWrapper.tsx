@@ -9,7 +9,7 @@ type LayoutWrapperProps = {
 const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
   const pathname = usePathname();
 
-  const hideNavbarFooterRoutes = ["/auth/login"];
+  const hideNavbarFooterRoutes = ["/auth/login", "/admin/properties/create"];
   const shouldHideNavbarFooter = hideNavbarFooterRoutes.includes(pathname);
 
   return (

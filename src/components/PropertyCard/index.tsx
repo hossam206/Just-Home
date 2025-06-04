@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { Carousel, CarouselContent, CarouselItem } from "../UI/Carousel";
 import Image from "next/image";
@@ -11,26 +11,27 @@ import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { FormatNumber } from "@/src/utils/FormatNumber";
 import { PropertyCardProps } from "@/src/types/property";
 // Image Comp
-export const PropertyImage = React.memo(
-  ({ src, alt }: { src: string; alt: string }) => {
-    const [imgSrc, setImgSrc] = useState(src);
-    return (
-      <Image
-        src={imgSrc}
-        alt={alt}
-        fill
-        className="object-cover transition duration-300 hover:scale-105"
-        placeholder="blur"
-        blurDataURL="/Images/placeholderImg.jpeg"
-        onError={() =>
-          setImgSrc(
-            "https://via.placeholder.com/600x400?text=Image+Not+Available"
-          )
-        }
-      />
-    );
-  }
-);
+export const PropertyImage = React.memo(function PropertyImage({ src, alt, }: { src: string; alt: string; })
+{
+  const [imgSrc, setImgSrc] = useState(src);
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      className="object-cover transition duration-300 hover:scale-105"
+      placeholder="blur"
+      blurDataURL="/Images/placeholderImg.jpeg"
+      onError={() =>
+        setImgSrc(
+          "https://via.placeholder.com/600x400?text=Image+Not+Available"
+        )
+      }
+    />
+  );
+});
+
 // card comp
 const PropertyCard = ({ property }: PropertyCardProps) => {
   const location = `${property?.location?.country} . ${property?.location?.city} . ${property?.location?.district}`;

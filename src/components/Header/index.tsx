@@ -37,7 +37,7 @@ const Header = () => {
               LET US GUIDE YOUR HOME
             </span>
             <h1 className="text-3xl lg:text-5xl text-center ">
-              Discover a place you'll love to live
+              Discover a place you &apos ll love to live
             </h1>
           </hgroup>
         ) : (
