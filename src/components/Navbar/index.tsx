@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { listarr } from "./assets";
 import Link from "next/link";
 import { NavbarStyles } from "./classNames";
@@ -10,17 +10,27 @@ import Button from "../UI/Button";
 import { RxHamburgerMenu } from "react-icons/rx";
 import Paragraph from "../UI/Paragraph";
 import { useClickOutside } from "@/src/Hooks/useClickOutside";
+import { useRouter } from "next/navigation";
 const Navbar = () => {
   const navRef = useRef<HTMLDivElement>(null!);
+  const [isloggedIn, setIsloggedIn] = useState(false);
   const [MobileScreen, setMobileScreen] = useState(false);
-  useClickOutside({ ref: navRef, setTarget: setMobileScreen });
-
+  useClickOutside({ ref: navRef, setTarget: setMobileScreen }); //resuable hook to detect click outside
+  const router = useRouter();
+  // get login status from locaLStorag
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("loggedIn");
+      const loginStatus = stored ? JSON.parse(stored) : false;
+      setIsloggedIn(loginStatus);
+    }
+  }, []);
   return (
     <div>
       {/* pc Navbar */}
       <div className={NavbarStyles.PCcontainer}>
         {/* Logo */}
-        <div className="p-2">
+        <Link href="/" className="p-2">
           <Image
             src={"/Images/Logo/lightLogo.png"}
             alt="website logo"
@@ -28,7 +38,7 @@ const Navbar = () => {
             height={20}
             style={{ width: "auto", height: "auto" }}
           />
-        </div>
+        </Link>
         {/* List */}
         <ul className="flexRow gap-6 ">
           {listarr?.map((item) => (
@@ -61,6 +71,11 @@ const Navbar = () => {
           <Button
             variant="btn-transparent"
             type="button"
+            onClick={() => {
+              isloggedIn
+                ? router.push("/admin/properties/create")
+                : router.push("/auth/login");
+            }}
             className="!rounded-full !text-xs font-normal"
           >
             Add Property
@@ -147,7 +162,16 @@ const Navbar = () => {
               </Link>
             </div>
             {/* Add Button */}
-            <Button className="w-full " variant="btn-primary">
+            <Button
+              type="button"
+              className="w-full "
+              variant="btn-primary"
+              onClick={() => {
+                isloggedIn
+                  ? router.push("/admin/properties/create")
+                  : router.push("/auth/login");
+              }}
+            >
               Add Property
             </Button>
           </div>

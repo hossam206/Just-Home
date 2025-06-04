@@ -25,6 +25,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^4.10.1",
+    "react-international-phone": "^4.5.0",
+    "react-phone-number-input": "^3.4.12",
     "sonner": "^2.0.5",
     "tailwind-merge": "^3.3.0",
     "yup": "^1.4.0"
