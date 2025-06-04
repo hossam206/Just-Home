@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useFormik } from "formik";
 
 import Paragraph from "@/src/components/UI/Paragraph";
@@ -20,6 +20,8 @@ const AdminPropertyForm = () => {
   const [cities, setCities] = useState<string[]>([]);
   const [districts, setDistricts] = useState<string[]>([]);
   const [imageUrl, setImageUrl] = useState("");
+  const countryOptions = useMemo(() => Object.keys(countries), []);
+  const propertyTypeOptions = useMemo(() => propertyTypes, []);
   const formik = useFormik({
     initialValues: {
       id: Date.now(),
@@ -37,7 +39,6 @@ const AdminPropertyForm = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log("Form Submitted:", values);
       router.push("/");
       ShowToast("success", "congrats", "new property adding success");
       localStorage.setItem("property", JSON.stringify(values));
@@ -54,33 +55,36 @@ const AdminPropertyForm = () => {
     } else {
       setCities([]);
     }
-    formik.setFieldValue("city", "");
-    formik.setFieldValue("district", "");
+    if (formik.values.city) {
+      formik.setFieldValue("city", "");
+    }
+    if (formik.values.district) {
+      formik.setFieldValue("district", "");
+    }
     setDistricts([]);
-  }, [formik.values.country, formik]);
+  }, [formik.values.country]);
 
   // Update districts when city changes
-  useEffect(() => {
-    const countryKey = formik.values.country as Country;
+useEffect(() => {
+  const countryKey = formik.values.country as Country;
+  if (countries[countryKey]) {
+    const cityKey = formik.values
+      .city as keyof (typeof countries)[typeof countryKey]["cities"];
+    const countryData = countries[countryKey];
+    const cityData = countryData.cities[cityKey];
 
-    if (countries[countryKey]) {
-      const cityKey = formik.values
-        .city as keyof (typeof countries)[typeof countryKey]["cities"];
-
-      const countryData = countries[countryKey];
-      const cityData = countryData.cities[cityKey];
-
-      if (cityData) {
-        setDistricts(cityData);
-      } else {
-        setDistricts([]);
-      }
+    if (cityData) {
+      setDistricts(cityData);
     } else {
       setDistricts([]);
     }
-
+  } else {
+    setDistricts([]);
+  }
+  if (formik.values.district !== "") {
     formik.setFieldValue("district", "");
-  }, [formik.values.city, formik.values.country, formik]);
+  }
+}, [formik.values.city, formik.values.country]);
 
   const handleAddImage = () => {
     if (imageUrl.trim()) {
@@ -138,7 +142,7 @@ const AdminPropertyForm = () => {
             value={formik.values.propertyType}
           >
             <option value="">Select Property Type</option>
-            {propertyTypes.map((type) => (
+            {propertyTypeOptions?.map((type) => (
               <option key={type}>{type}</option>
             ))}
           </select>
@@ -179,7 +183,7 @@ const AdminPropertyForm = () => {
             value={formik.values.country}
           >
             <option value="">Select Country</option>
-            {Object.keys(countries).map((country) => (
+            {countryOptions?.map((country) => (
               <option key={country}>{country}</option>
             ))}
           </select>
@@ -199,7 +203,7 @@ const AdminPropertyForm = () => {
             disabled={!cities.length}
           >
             <option value="">Select City</option>
-            {cities.map((city) => (
+            {cities?.map((city) => (
               <option key={city}>{city}</option>
             ))}
           </select>
@@ -219,7 +223,7 @@ const AdminPropertyForm = () => {
             disabled={!districts.length}
           >
             <option value="">Select District</option>
-            {districts.map((district) => (
+            {districts?.map((district) => (
               <option key={district}>{district}</option>
             ))}
           </select>
@@ -229,7 +233,7 @@ const AdminPropertyForm = () => {
         </div>
 
         {/* Price, Area, Bedrooms, Bathrooms */}
-        {(["price", "area", "bedrooms", "bathrooms"] as const).map((field) => (
+        {(["price", "area", "bedrooms", "bathrooms"] as const)?.map((field) => (
           <div key={field} className="md:col-span-3 mt-2 col-span-12">
             <TextInput
               id={field}
@@ -278,7 +282,7 @@ const AdminPropertyForm = () => {
             </div>
           </div>
           <ul className="mt-2 flexRow flex-wrap text-sm text-gray-70 gap-2">
-            {formik.values.images.map((url, i) => (
+            {formik?.values?.images?.map((url, i) => (
               <li
                 key={i}
                 className="flexRow px-2 gap-4 py-1 rounded-lg bg-gray-20"
