@@ -69,7 +69,7 @@ const Pagination = ({
   return (
     <nav
       aria-label="Pagination"
-      className="flex justify-center mt-6 space-x-1 md:space-x-2 select-none"
+      className="flex justify-center mt-6 space-x-1 md:space-x-2 select-none py-6"
     >
       <PaginationLink
         href={basePath + "/" + Math.max(currentPage - 1, 1)}

@@ -15,7 +15,7 @@ import { propertiesProps } from "@/src/types/property";
 import { paginate } from "@/src/utils/paginate";
 import React, { useState } from "react";
 
-const ProperyListing = ({ properties }: propertiesProps) => {
+const ProperyListing = ({ properties, isFilterPage }: propertiesProps) => {
   const pageSize = process.env.NEXT_PUBLIC_ITEMS_PER_PAGE;
   const [currentPage, setCurrentPage] = useState(1);
   const { paginatedItems, totalPages } = paginate(
@@ -23,36 +23,44 @@ const ProperyListing = ({ properties }: propertiesProps) => {
     currentPage,
     Number(pageSize)
   );
-
   const isMobile = useMediaQuery("(max-width: 768px)");
   return (
-    <div className="bg-gray-20 py-20">
+    <div className={`${isFilterPage ? "" : "bg-gray-20 py-10"}`}>
       <div className="container">
         {/* title & description */}
-        <div className="flexCol items-center py-3">
-          <h1 className="font-semibold text-xl">Homes For You</h1>
-          <Paragraph size="sm" align="center" color="darkGray">
-            Based on your view history
-          </Paragraph>
-        </div>
-
+        {!isFilterPage && (
+          <div className="flexCol items-center pb-4">
+            <h1 className="text-lg md:text-2xl font-semibold text-gray-90">
+              Homes For You
+            </h1>
+            <Paragraph size="sm" align="center" color="darkGray">
+              Based on your view history
+            </Paragraph>
+          </div>
+        )}
         {/* Property Listing */}
         {!isMobile ? (
           // Grid view on large screens
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-4">
-            {paginatedItems?.map((property) => (
-              <RenderWithSkeleton
-                className="bg-red-500"
-                value={property}
-                key={property.id}
-                skeletonWidth={100}
-                skeletonHeight={50}
-              >
-                <PropertyCard property={property} />
-              </RenderWithSkeleton>
-            ))}
-          </div>
-        ) : (
+          paginatedItems?.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-4">
+              {paginatedItems.map((property) => (
+                <RenderWithSkeleton
+                  className="bg-red-500"
+                  value={property}
+                  key={property.id}
+                  skeletonWidth={100}
+                  skeletonHeight={50}
+                >
+                  <PropertyCard property={property} />
+                </RenderWithSkeleton>
+              ))}
+            </div>
+          ) : (
+            <div className="flexRow justify-center py-6  w-full">
+              No result available now, try again
+            </div>
+          )
+        ) : paginatedItems?.length > 0 ? (
           // Carousel on small/medium screens
           <div className="w-full md:px-10 relative">
             <Carousel
@@ -62,11 +70,11 @@ const ProperyListing = ({ properties }: propertiesProps) => {
               numOfSlide={1}
             >
               <div className="relative md:bottom-6 bottom-0 mb-10 flex gap-2 flex-row justify-between md:mb-4">
-                <CarouselPrevious className={` absolute right-10 z-10`} />
-                <CarouselNext className={` absolute right-2 z-10`} />
+                <CarouselPrevious className="absolute right-10 z-10" />
+                <CarouselNext className="absolute right-2 z-10" />
               </div>
               <CarouselContent>
-                {paginatedItems?.map((property, index) => (
+                {paginatedItems.map((property, index) => (
                   <CarouselItem
                     key={index}
                     className="px-2 basis-full sm:basis-1/2"
@@ -84,14 +92,19 @@ const ProperyListing = ({ properties }: propertiesProps) => {
               </CarouselContent>
             </Carousel>
           </div>
+        ) : (
+          <div className="flexRow justify-center   py-6 w-full">
+            No result available now, try again
+          </div>
         )}
-
-        <Pagination
-          totalPages={totalPages}
-          currentPage={currentPage}
-          basePath="/properties"
-          onPageChange={setCurrentPage}
-        />
+        {properties?.length != 0 && (
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            basePath="/properties"
+            onPageChange={setCurrentPage}
+          />
+        )}
       </div>
     </div>
   );

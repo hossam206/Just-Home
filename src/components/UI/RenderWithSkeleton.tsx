@@ -21,7 +21,6 @@ export const RenderWithSkeleton = memo(
     ariaLabel = "Loading content",
     ...props
   }: RenderWithSkeletonProps) => {
-    
     const isValueEmpty = (val: any) =>
       val === undefined ||
       val === null ||
@@ -40,10 +39,10 @@ export const RenderWithSkeleton = memo(
           : skeletonHeight
       }]`
     );
-console.log(isValueEmpty(value));
+    // console.log(isValueEmpty(value));
     if (isValueEmpty(value)) {
       return (
-        <Skeleton className="w-50 h-50" aria-label={ariaLabel} {...props} />
+        <Skeleton className={skeletonClass} aria-label={ariaLabel} {...props} />
       );
     }
 
