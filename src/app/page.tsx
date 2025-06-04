@@ -1,4 +1,4 @@
-import { fetchProperties } from "../api/properties/page";
+import { fetchProperties } from "../api/properties/route";
 import ProperyListing from "../containers/ProperyListing";
 
 export default async function Home() {

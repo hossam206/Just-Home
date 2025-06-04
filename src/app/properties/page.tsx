@@ -1,4 +1,4 @@
-import { fetchProperties } from "@/src/api/properties/page";
+import { fetchProperties } from "@/src/api/properties/route";
 import Paragraph from "@/src/components/UI/Paragraph";
 import Filter from "@/src/containers/Filter";
 import ProperyListing from "@/src/containers/ProperyListing";

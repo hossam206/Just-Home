@@ -12,9 +12,7 @@ export const HeaderStyles = {
   guidText: clx(
     "rounded-full py-2  w-fit px-2 md:px-4  text-center block text-xs border border-solid border-white"
   ),
-  sellORrent: clx(
-    "border-b-2 border-white hover:text-white pb-1 cursor-pointer"
-  ),
+  sellORrent: clx("border-b border-white hover:text-gray-30  cursor-pointer"),
   inputDiv: clx(
     "flex flex-row justify-between items-center gap-2 w-full bg-white rounded-full px-2 py-1 mt-4 shadow-md"
   ),

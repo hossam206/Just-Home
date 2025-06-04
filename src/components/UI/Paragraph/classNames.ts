@@ -13,7 +13,7 @@ export const sizeStyles = {
 
 // Color-based styles
 export const colorStyles = {
-  dark: "text-gray-60", // Default text color
+  dark: "text-gray-90", // Default text color
   darkGray: "text-gray-70",
   light: "text-gray-10", // Lighter text color
   lightGray: "text-gray-50",
