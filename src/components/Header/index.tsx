@@ -54,7 +54,9 @@ const Header = () => {
           <>
             <hgroup className="flex gap-4 md:text-base border-b border-gray-50 pb-2 text-xs">
               <span className={HeaderStyles.sellORrent}>Sale</span>
-              <span className={HeaderStyles.sellORrent}>Rent</span>
+              <span className={`${HeaderStyles.sellORrent} border-none`}>
+                Rent
+              </span>
             </hgroup>
 
             <div className={HeaderStyles.inputDiv}>

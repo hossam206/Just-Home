@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { getAditionalStyles, TextInputStyles } from "./classNames";
 import { IoEyeOff, IoEye } from "react-icons/io5";
+import { HandleError } from "@/src/utils/HandleError";
 
 type TextInputProps = {
   label?: string;
@@ -74,6 +75,8 @@ const TextInput = ({
           </span>
         )}
       </div>
+      {/* Error Message */}
+      {touched && error && <HandleError error={error} />}
     </div>
   );
 };

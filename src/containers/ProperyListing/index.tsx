@@ -14,6 +14,7 @@ import { RenderWithSkeleton } from "@/src/components/UI/RenderWithSkeleton";
 import { propertiesProps } from "@/src/types/property";
 import { paginate } from "@/src/utils/paginate";
 import React, { useState } from "react";
+import { ListingStyles } from "./classNames";
 
 const ProperyListing = ({ properties, isFilterPage }: propertiesProps) => {
   const pageSize = process.env.NEXT_PUBLIC_ITEMS_PER_PAGE;
@@ -30,9 +31,7 @@ const ProperyListing = ({ properties, isFilterPage }: propertiesProps) => {
         {/* title & description */}
         {!isFilterPage && (
           <div className="flexCol items-center pb-4">
-            <h1 className="text-lg md:text-2xl font-semibold text-gray-90">
-              Homes For You
-            </h1>
+            <h1 className={ListingStyles.Heading}>Homes For You</h1>
             <Paragraph size="sm" align="center" color="darkGray">
               Based on your view history
             </Paragraph>
@@ -69,7 +68,7 @@ const ProperyListing = ({ properties, isFilterPage }: propertiesProps) => {
               playWithClick={true}
               numOfSlide={1}
             >
-              <div className="relative md:bottom-6 bottom-0 mb-10 flex gap-2 flex-row justify-between md:mb-4">
+              <div className={ListingStyles.carsualBtn}>
                 <CarouselPrevious className="absolute right-10 z-10" />
                 <CarouselNext className="absolute right-2 z-10" />
               </div>

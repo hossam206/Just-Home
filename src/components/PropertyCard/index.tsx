@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from "react";
 import { Carousel, CarouselContent, CarouselItem } from "../UI/Carousel";
 import Image from "next/image";
@@ -10,7 +11,7 @@ import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { FormatNumber } from "@/src/utils/FormatNumber";
 import { PropertyCardProps } from "@/src/types/property";
 // Image Comp
-const PropertyImage = React.memo(
+export const PropertyImage = React.memo(
   ({ src, alt }: { src: string; alt: string }) => {
     const [imgSrc, setImgSrc] = useState(src);
     return (
