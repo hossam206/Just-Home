@@ -91,8 +91,8 @@ const Navbar = () => {
             <Image
               src={"/Images/Logo/lightLogo.png"}
               alt="website logo"
-              width={140}
-              height={20}
+              width={180}
+              height={40}
               style={{ width: "auto", height: "auto" }}
             />
           </Link>
