@@ -18,3 +18,17 @@ export const validationSchema = Yup.object({
     .required("Bathrooms required"),
   images: Yup.array().min(1, "At least one image is required"),
 });
+export const defaultValues = {
+  id: "",
+  title: "",
+  description: "",
+  country: "",
+  city: "",
+  district: "",
+  propertyType: "",
+  price: "",
+  area: "",
+  bedrooms: "",
+  bathrooms: "",
+  images: [] as string[],
+};

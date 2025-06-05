@@ -1,4 +1,3 @@
-import { cn } from "@/src/lib/utils";
 import React, { ReactNode } from "react";
 import { Skeleton } from "./skeleton";
 
@@ -8,7 +7,7 @@ type RenderWithSkeletonProps = {
   skeletonHeight?: number | string;
   className?: string;
   children: ReactNode;
-  ariaLabel?: string; // Accessibility improvement
+  ariaLabel?: string;
 };
 
 export const RenderWithSkeleton = React.memo(function RenderWithSkeleton({
@@ -20,28 +19,30 @@ export const RenderWithSkeleton = React.memo(function RenderWithSkeleton({
   ariaLabel = "Loading content",
   ...props
 }: RenderWithSkeletonProps) {
-  const isValueEmpty = (val: unknown) =>
-    val === undefined ||
-    val === null ||
-    (typeof val === "string" && val.trim() === "") ||
-    (Array.isArray(val) && val.length === 0) ||
-    (typeof val === "object" && Object.keys(val).length === 0);
-
-  const skeletonClass = cn(
-    className,
-    `w-[${
-      typeof skeletonWidth === "number" ? `${skeletonWidth}px` : skeletonWidth
-    }]`,
-    `h-[${
-      typeof skeletonHeight === "number"
-        ? `${skeletonHeight}px`
-        : skeletonHeight
-    }]`
-  );
-
+  const isValueEmpty = (val: unknown) => {
+    if (val === null || val === undefined) return true;
+    if (typeof val === "string") return val.trim() === "";
+    if (Array.isArray(val)) return val.length === 0;
+    if (typeof val === "object") return Object.keys(val || {}).length === 0;
+    return false;
+  };
   if (isValueEmpty(value)) {
     return (
-      <Skeleton className={skeletonClass} aria-label={ariaLabel} {...props} />
+      <Skeleton
+        style={{
+          width:
+            typeof skeletonWidth === "number"
+              ? `${skeletonWidth}px`
+              : skeletonWidth || "50px",
+          height:
+            typeof skeletonHeight === "number"
+              ? `${skeletonHeight}px`
+              : skeletonHeight || "20px",
+        }}
+        className={className}
+        aria-label={ariaLabel}
+        {...props}
+      />
     );
   }
 

@@ -136,7 +136,7 @@ const Carousel = forwardRef<
         }
       }, 4000);
       return () => clearInterval(autoplay);
-    }, [api,playWithClick]);
+    }, [api, playWithClick]);
 
     return (
       <CarouselContext.Provider
@@ -205,18 +205,12 @@ const CarouselPrevious = forwardRef<
   HTMLButtonElement,
   ComponentProps<typeof Button>
 >(({ className, size = "icon", ...props }, ref) => {
-  const { orientation, scrollPrev } = useCarousel();
+  const { scrollPrev } = useCarousel();
   return (
     <Button
       ref={ref}
       size={size}
-      className={cn(
-        "absolute h-8 w-8 rounded-full",
-        orientation === "horizontal"
-          ? "top-1/2 left-0 -translate-y-1/2"
-          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
-      )}
+      className={cn(className)}
       onClick={scrollPrev}
       {...props}
     >
@@ -231,18 +225,12 @@ const CarouselNext = forwardRef<
   HTMLButtonElement,
   ComponentProps<typeof Button>
 >(({ className, size = "icon", ...props }, ref) => {
-  const { orientation, scrollNext } = useCarousel();
+  const { scrollNext } = useCarousel();
   return (
     <Button
       ref={ref}
       size={size}
-      className={cn(
-        "absolute h-8 w-8 rounded-full",
-        orientation === "horizontal"
-          ? "top-1/2 right-0 -translate-y-1/2"
-          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
-      )}
+      className={cn(className)}
       onClick={scrollNext}
       {...props}
     >

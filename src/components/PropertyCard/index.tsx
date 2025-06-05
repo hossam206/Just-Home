@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem } from "../UI/Carousel";
 import Image from "next/image";
 import { CiLocationOn } from "react-icons/ci";
@@ -10,10 +10,20 @@ import { RxDimensions } from "react-icons/rx";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { FormatNumber } from "@/src/utils/FormatNumber";
 import { PropertyCardProps } from "@/src/types/property";
+import { CiEdit } from "react-icons/ci";
+import { peopertyCardStyles } from "./classNames";
+import { useRouter } from "next/navigation";
+
 // Image Comp
-export const PropertyImage = React.memo(function PropertyImage({ src, alt, }: { src: string; alt: string; })
-{
+export const PropertyImage = React.memo(function PropertyImage({
+  src,
+  alt,
+}: {
+  src: string;
+  alt: string;
+}) {
   const [imgSrc, setImgSrc] = useState(src);
+
   return (
     <Image
       src={imgSrc}
@@ -34,18 +44,39 @@ export const PropertyImage = React.memo(function PropertyImage({ src, alt, }: { 
 
 // card comp
 const PropertyCard = ({ property }: PropertyCardProps) => {
+  const router = useRouter();
+  const [isLoggedIn, setIsloggedIn] = useState(false);
+  // check if user is logedin (admin)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("loggedIn");
+      const loginStatus = stored ? JSON.parse(stored) : false;
+      setIsloggedIn(loginStatus);
+    }
+  }, []);
+
   const location = `${property?.location?.country} . ${property?.location?.city} . ${property?.location?.district}`;
   const locationUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     location
   )}`;
 
   return (
-    <div className="rounded-xl overflow-hidden border shadow-sm bg-white transition space-y-4 p-2">
+    <div className={peopertyCardStyles.container}>
       {/* Image Carousel */}
       <div className="relative">
-        <div className="absolute top-3 left-2 bg-primary text-white text-xs px-3 py-1 rounded-full shadow z-20">
-          For Rent
-        </div>
+        <hgroup>
+          <div className={peopertyCardStyles.forRent}>For Rent</div>
+          {isLoggedIn && (
+            <span
+              className={peopertyCardStyles.editBtn}
+              onClick={() =>
+                router.push(`/admin/properties/edit?id=${property.id}`)
+              }
+            >
+              <CiEdit />
+            </span>
+          )}
+        </hgroup>
         <Carousel opts={{ loop: true }} playWithClick={true} numOfSlide={1}>
           <CarouselContent>
             {property?.images?.map((item, index) => (
@@ -82,7 +113,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
           href={locationUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flexRow justify-start gap-1 text-gray-70 hover:text-gray-80 cursor-pointer text-xs"
+          className={peopertyCardStyles.Location}
         >
           <CiLocationOn size={18} />
           <span>{location}</span>
@@ -93,7 +124,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
           <span>{property.propertyType}</span>
         </div>
         {/* Features */}
-        <div className="flexRow  justify-between text-xs text-gray-70 px-2  pb-2 gap-2 ">
+        <div className={peopertyCardStyles.FeatureContainer}>
           <div className="flex items-center gap-1">
             <PiBed size={14} />
             <span>{property.bedrooms} Beds</span>

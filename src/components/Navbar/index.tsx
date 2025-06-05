@@ -87,13 +87,15 @@ const Navbar = () => {
       <div className={NavbarStyles.mobileContainer} ref={navRef}>
         {/* Logo and search */}
         <div className="flexRow justify-between w-full p-1">
-          <Image
-            src={"/Images/Logo/lightLogo.png"}
-            alt="website logo"
-            width={140}
-            height={20}
-            style={{ width: "auto", height: "auto" }}
-          />
+          <Link href="/">
+            <Image
+              src={"/Images/Logo/lightLogo.png"}
+              alt="website logo"
+              width={140}
+              height={20}
+              style={{ width: "auto", height: "auto" }}
+            />
+          </Link>
           <div className="flexRow gap-2  text-white cursor-pointer">
             <span className={NavbarStyles.userIcon}>
               <FaRegUser size={14} />

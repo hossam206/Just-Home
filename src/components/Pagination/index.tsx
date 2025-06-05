@@ -11,15 +11,15 @@ export type PaginationLinkProps = {
 
 function PaginationLink({
   isActive,
-  size = "icon",
+
   ...props
 }: PaginationLinkProps) {
   const combinedClass = cn(
-    "pagination-link flex items-center justify-center rounded-full md:rounded-md px-2  md:px-3 text-gray-80 md:py-1 cursor-pointer transition-colors",
+    "flex items-center justify-center rounded-full md:rounded-md text-gray-80 cursor-pointer transition-colors",
     isActive
-      ? "border border-solid border-gray-60  text-gray-60 font-medium bg-white"
+      ? "border border-solid border-gray-60 text-gray-60 font-medium bg-white"
       : "border border-transparent hover:bg-gray-30",
-    `size-${size}`
+    props.className
   );
 
   return (
@@ -68,7 +68,7 @@ const Pagination = ({
   return (
     <nav
       aria-label="Pagination"
-      className="flex justify-center mt-6 space-x-1 md:space-x-2 select-none py-6"
+      className="flexRow justify-center mt-6 space-x-1 md:space-x-2 select-none py-6"
     >
       <PaginationLink
         href={basePath + "/" + Math.max(currentPage - 1, 1)}
@@ -82,7 +82,7 @@ const Pagination = ({
         }}
         className={`px-3 ${
           currentPage === 1
-            ? "opacity-50 pointer-events-none"
+            ? "opacity-50 pointer-events-none cursor-not-allowed"
             : "cursor-pointer"
         }`}
         size="md"
@@ -107,7 +107,11 @@ const Pagination = ({
             href={`${basePath}/${page}`}
             isActive={currentPage === page}
             size="md"
-            className="text-sm"
+            className={`text-sm px-3 py-1 md:px-3 border border-solid    rounded-xl hover:bg-gray-30 ${
+              currentPage === page
+                ? "bg-white border-gray-40"
+                : "bg-transparent border-gray-30"
+            }`}
             onClick={(e) => {
               e.preventDefault();
               goToPage(Number(page));
